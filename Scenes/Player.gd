@@ -40,7 +40,7 @@ func updateMousePath() -> void:
 	currentPointPath = astarGrid.get_point_path(
 		tileMap.local_to_map(global_position),
 		tileMap.local_to_map(get_global_mouse_position())
-	)
+	).slice(1) # Without taking into account the starting position.
 
 	for i in currentPointPath.size():
 		currentPointPath[i] = currentPointPath[i] + Vector2(float(tileMapQuadran)/2.0, float(tileMapQuadran)/2.0)

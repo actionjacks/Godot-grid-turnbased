@@ -11,8 +11,7 @@ func _draw():
 	if playerPointer.currentIdPath.is_empty():
 		clearDots()
 		return
-		
-	clearDots()
+
 	for i in range(playerPointer.currentPointPath.size()):
 		var dotPosition = playerPointer.currentPointPath[i]
 		
