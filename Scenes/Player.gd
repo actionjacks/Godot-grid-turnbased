@@ -1,6 +1,7 @@
 extends CharacterBody2D
-
 class_name Player
+
+signal redrawNewPointPath()
 
 # draw line
 var currentPointPath: PackedVector2Array
@@ -43,8 +44,8 @@ func updateMousePath() -> void:
 	).slice(1) # Without taking into account the starting position.
 
 	for i in currentPointPath.size():
-		currentPointPath[i] = currentPointPath[i] + Vector2(float(tileMapQuadran)/2.0, float(tileMapQuadran)/2.0)
-
+		var pos = float(tileMapQuadran)/2.0 # poses on a single square of the map.
+		currentPointPath[i] = currentPointPath[i] + Vector2(pos, pos)
 
 func _ready():
 	tileMapInit()
@@ -56,6 +57,7 @@ func _input(event):
 	var idPath: Array[Vector2i]
 	
 	if isMoving:
+		redrawNewPointPath.emit()
 		idPath = astarGrid.get_id_path(
 			tileMap.local_to_map(global_position),
 			tileMap.local_to_map(get_global_mouse_position())

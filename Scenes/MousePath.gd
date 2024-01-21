@@ -4,6 +4,9 @@ extends Node2D
 var dotScene: PackedScene = preload("res://Scenes/Dot.tscn")
 var createdDots: Array = []
 
+func _ready():
+	playerPointer.redrawNewPointPath.connect(clearDots)
+
 func _process(_delta):
 	queue_redraw()
 
@@ -13,8 +16,8 @@ func _draw():
 		return
 
 	for i in range(playerPointer.currentPointPath.size()):
-		var dotPosition = playerPointer.currentPointPath[i]
-		
+		var dotPosition: Vector2 = playerPointer.currentPointPath[i]
+
 		var dotExists = false
 		for dot in createdDots:
 			if dot.position == dotPosition:
@@ -32,7 +35,4 @@ func clearDots():
 	for dot in createdDots:
 		dot.queue_free()
 	createdDots.clear()
-		
-		
-		
 		
