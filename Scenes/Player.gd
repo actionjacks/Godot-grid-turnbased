@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name Player
+
 # draw line
 var currentPointPath: PackedVector2Array
 
@@ -15,7 +17,7 @@ var currentIdPath: Array[Vector2i]
 var targetPosition: Vector2
 var isMoving: bool
 
-func tileMapInit():
+func tileMapInit() -> void:
 	astarGrid = AStarGrid2D.new()
 	astarGrid.region = tileMap.get_used_rect()
 	astarGrid.cell_size = Vector2(tileMapQuadran, tileMapQuadran)
@@ -33,6 +35,16 @@ func tileMapInit():
 			
 			if !tileData || !tileData.get_custom_data("walkable"):
 				astarGrid.set_point_solid(tilePosition)
+
+func updateMousePath() -> void:
+	currentPointPath = astarGrid.get_point_path(
+		tileMap.local_to_map(global_position),
+		tileMap.local_to_map(get_global_mouse_position())
+	)
+
+	for i in currentPointPath.size():
+		currentPointPath[i] = currentPointPath[i] + Vector2(float(tileMapQuadran)/2.0, float(tileMapQuadran)/2.0)
+
 
 func _ready():
 	tileMapInit()
@@ -56,13 +68,18 @@ func _input(event):
 		
 	if !idPath.is_empty():
 		currentIdPath = idPath
+		updateMousePath()
+
 	
 func _physics_process(delta):
-	if currentIdPath.is_empty():
-		# animationPlayer.play('idle')
-		return
+	if !isMoving:
+		animationPlayer.play('idle')
+	else:
+		animationPlayer.play('walking')
 		
-	# animationPlayer.play('walking')
+	if currentIdPath.is_empty():
+		return
+
 	if !isMoving:
 		targetPosition = tileMap.map_to_local(currentIdPath.front())
 		isMoving = true
@@ -76,8 +93,4 @@ func _physics_process(delta):
 			targetPosition = tileMap.map_to_local(currentIdPath.front())
 		else:
 			isMoving = false
-		
-		
-		
-		
 		
