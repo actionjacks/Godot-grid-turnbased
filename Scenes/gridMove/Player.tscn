@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://b6xgot5mdc017"]
+[gd_scene load_steps=9 format=3 uid="uid://ncm5je3fm72h"]
 
-[ext_resource type="Script" path="res://Scenes/Player.gd" id="1_5fbma"]
-[ext_resource type="Texture2D" uid="uid://b6vokj5boqbbv" path="res://Assets/grid-player-1-Sheet.png" id="2_qwfub"]
+[ext_resource type="Texture2D" uid="uid://b6vokj5boqbbv" path="res://Assets/grid-player-1-Sheet.png" id="1_kjttf"]
+[ext_resource type="Script" path="res://Scenes/gridMove/Player.gd" id="1_oik6a"]
+[ext_resource type="Texture2D" uid="uid://bicgwrjar37j6" path="res://Assets/cross.png" id="2_hgfvs"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s5tv5"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pku6i"]
 radius = 6.0
 height = 24.0
 
@@ -36,7 +37,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_qwfub")]
+"values": [ExtResource("1_kjttf")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -77,7 +78,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_qwfub")]
+"values": [ExtResource("1_kjttf")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -111,15 +112,22 @@ _data = {
 "walking": SubResource("Animation_qcpey")
 }
 
-[node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_5fbma")
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("pointerSprite", "animationPlayer")]
+script = ExtResource("1_oik6a")
+pointerSprite = NodePath("PointerSprite")
+animationPlayer = NodePath("AnimationPlayer")
+
+[node name="PointerSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_hgfvs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
-shape = SubResource("CapsuleShape2D_s5tv5")
+shape = SubResource("CapsuleShape2D_pku6i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_qwfub")
+unique_name_in_owner = true
+modulate = Color(0.219608, 1, 0.054902, 1)
+texture = ExtResource("1_kjttf")
 hframes = 12
 frame = 6
 

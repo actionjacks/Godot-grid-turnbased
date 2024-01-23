@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var playerPointer: Player 
-var dotScene: PackedScene = preload("res://Scenes/Dot.tscn")
+var dotScene: PackedScene = preload("res://Scenes/grid-astar2d/Dot.tscn")
 var createdDots: Array = []
 
 func _ready():
