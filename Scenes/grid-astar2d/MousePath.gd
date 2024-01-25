@@ -8,9 +8,6 @@ func _ready():
 	playerPointer.redrawNewPointPath.connect(clearDots)
 
 func _process(_delta):
-	queue_redraw()
-
-func _draw():
 	if playerPointer.currentPointPath.is_empty():
 		clearDots()
 		return
@@ -26,9 +23,12 @@ func _draw():
 		
 		if !dotExists:
 			var dot = dotScene.instantiate() as Node2D
-			dot.position = dotPosition
-			self.add_child(dot)
+			dot.global_position = dotPosition
 			
+
+			# var tween = create_tween().set_loops()
+			# tween.tween_property(dot, "scale", 0.5, 0.2)
+			self.add_child(dot)
 			createdDots.append(dot)
 		
 func clearDots():

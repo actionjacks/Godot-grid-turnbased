@@ -38,14 +38,17 @@ func tileMapInit() -> void:
 				astarGrid.set_point_solid(tilePosition)
 
 func updateMousePath() -> void:
-	currentPointPath = astarGrid.get_point_path(
-		tileMap.local_to_map(global_position),
-		tileMap.local_to_map(get_global_mouse_position())
-	).slice(1) # Without taking into account the starting position.
-
-	for i in currentPointPath.size():
-		var pos = float(tileMapQuadran)/2.0 # poses on a single square of the map.
-		currentPointPath[i] = currentPointPath[i] + Vector2(pos, pos)
+	var mousePosition = tileMap.local_to_map(get_global_mouse_position())
+	
+	if astarGrid.is_in_bounds(mousePosition.x, mousePosition.y):
+		currentPointPath = astarGrid.get_point_path(
+			tileMap.local_to_map(global_position),
+			mousePosition
+		).slice(1) # Without taking into account the starting position.
+			
+		for i in currentPointPath.size():
+			var pos = float(tileMapQuadran)/2.0 # poses on a single square of the map.
+			currentPointPath[i] = currentPointPath[i] + Vector2(pos, pos)
 
 func _ready():
 	tileMapInit()
