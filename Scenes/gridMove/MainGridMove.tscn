@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://7psq5jo1778v"]
+[gd_scene load_steps=10 format=3 uid="uid://7psq5jo1778v"]
 
 [ext_resource type="Texture2D" uid="uid://dtco2nu5qmode" path="res://Assets/Sprite-0001-Sheet.png" id="1_rdq2x"]
 [ext_resource type="PackedScene" uid="uid://ncm5je3fm72h" path="res://Scenes/gridMove/Player.tscn" id="2_ck45b"]
 [ext_resource type="Script" path="res://Scenes/gridMove/TileMap.gd" id="2_ds0yh"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="3_1d6fn"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_nh0uq"]
+[ext_resource type="PackedScene" uid="uid://kfsjpht3ukt1" path="res://Scenes/gridMove/Enemy.tscn" id="6_cso6h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4alv7"]
 texture = ExtResource("1_rdq2x")
@@ -37,7 +38,7 @@ layer_0/tile_data = PackedInt32Array(0, 65536, 0, 65536, 65536, 0, 131072, 65536
 script = ExtResource("2_ds0yh")
 
 [node name="Player" parent="." node_paths=PackedStringArray("tileMap") instance=ExtResource("2_ck45b")]
-position = Vector2(307, 149)
+position = Vector2(48, 33)
 tileMap = NodePath("../TileMap")
 
 [node name="PhantomCamera2D" type="Node2D" parent="Player"]
@@ -58,3 +59,13 @@ limit/smoothed = false
 tween_parameters = SubResource("Resource_wlia0")
 tween_on_load = true
 inactive_update_mode = 0
+
+[node name="Enemy" parent="." node_paths=PackedStringArray("player", "tileMap") instance=ExtResource("6_cso6h")]
+position = Vector2(144, 112)
+player = NodePath("../Player")
+tileMap = NodePath("../TileMap")
+
+[node name="Enemy2" parent="." node_paths=PackedStringArray("player", "tileMap") instance=ExtResource("6_cso6h")]
+position = Vector2(208, 112)
+player = NodePath("../Player")
+tileMap = NodePath("../TileMap")

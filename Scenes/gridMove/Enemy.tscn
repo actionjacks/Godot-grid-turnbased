@@ -1,10 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://kfsjpht3ukt1"]
+[gd_scene load_steps=9 format=3 uid="uid://kfsjpht3ukt1"]
 
 [ext_resource type="Texture2D" uid="uid://b6vokj5boqbbv" path="res://Assets/grid-player-1-Sheet.png" id="1_b1h40"]
+[ext_resource type="Script" path="res://Scenes/gridMove/Enemy.gd" id="1_bbmyp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pku6i"]
 radius = 6.0
 height = 24.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_futpo"]
+size = Vector2(32, 32)
 
 [sub_resource type="Animation" id="Animation_ji4id"]
 length = 0.001
@@ -110,11 +114,18 @@ _data = {
 "walking": SubResource("Animation_qcpey")
 }
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("animationPlayer") groups=["enemies"]]
+script = ExtResource("1_bbmyp")
+animationPlayer = NodePath("AnimationPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_pku6i")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_futpo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.117647, 1, 1)

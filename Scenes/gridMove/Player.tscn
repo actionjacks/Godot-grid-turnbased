@@ -112,10 +112,11 @@ _data = {
 "walking": SubResource("Animation_qcpey")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("pointerSprite", "animationPlayer")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("pointerSprite", "animationPlayer", "rayCastPointer")]
 script = ExtResource("1_oik6a")
 pointerSprite = NodePath("PointerSprite")
 animationPlayer = NodePath("AnimationPlayer")
+rayCastPointer = NodePath("RayCast2D")
 
 [node name="PointerSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_hgfvs")
@@ -136,3 +137,6 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_f7nq2")
 }
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 32)

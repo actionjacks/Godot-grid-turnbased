@@ -3,7 +3,9 @@ extends CharacterBody2D
 @export var tileMap: TileMap
 @export var pointerSprite: Sprite2D
 @export var animationPlayer: AnimationPlayer
+@export var rayCastPointer: RayCast2D
 
+var cellTileSize: int = 32
 var isMoving = false
 var movingSpeed = 0.5
 
@@ -39,10 +41,12 @@ func move(direction: Vector2):
 	if !tileData || !tileData.get_custom_data("walkable"):
 		return
 		
-	# isMoving = true
 	# global_position = tileMap.map_to_local(targetTile)
 
 	pointerSprite.global_position = tileMap.map_to_local(targetTile)
+
+	if checkRaycastCollision(direction):
+		return
 
 	var tween = create_tween()
 	isMoving = true
@@ -50,3 +54,7 @@ func move(direction: Vector2):
 	await tween.finished
 	isMoving = false
 
+func checkRaycastCollision(direction: Vector2) -> bool:
+	rayCastPointer.target_position = direction * cellTileSize
+	rayCastPointer.force_raycast_update()
+	return rayCastPointer.is_colliding()
