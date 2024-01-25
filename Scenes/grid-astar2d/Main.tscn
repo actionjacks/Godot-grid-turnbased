@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmov1kxg86yqs"]
+[gd_scene load_steps=7 format=3 uid="uid://cmov1kxg86yqs"]
 
 [ext_resource type="PackedScene" uid="uid://b6xgot5mdc017" path="res://Scenes/grid-astar2d/Player.tscn" id="1_v24eo"]
 [ext_resource type="Texture2D" uid="uid://dtco2nu5qmode" path="res://Assets/Sprite-0001-Sheet.png" id="1_vlwhy"]
 [ext_resource type="Script" path="res://Scenes/grid-astar2d/MousePath.gd" id="3_gk0dj"]
+[ext_resource type="PackedScene" uid="uid://deccgv1m12glw" path="res://Scenes/grid-astar2d/Dot.tscn" id="4_bp6ff"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hy34s"]
 texture = ExtResource("1_vlwhy")
@@ -36,3 +37,6 @@ unique_name_in_owner = true
 position = Vector2(16, 16)
 tileMap = NodePath("../TileMap")
 tileMapQuadran = 32
+
+[node name="Dot" parent="." instance=ExtResource("4_bp6ff")]
+position = Vector2(142, 15)

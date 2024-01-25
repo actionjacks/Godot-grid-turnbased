@@ -22,12 +22,8 @@ func _process(_delta):
 				break
 		
 		if !dotExists:
-			var dot = dotScene.instantiate() as Node2D
+			var dot = dotScene.instantiate() as AnimatedSprite2D
 			dot.global_position = dotPosition
-			
-
-			# var tween = create_tween().set_loops()
-			# tween.tween_property(dot, "scale", 0.5, 0.2)
 			self.add_child(dot)
 			createdDots.append(dot)
 		
@@ -35,4 +31,3 @@ func clearDots():
 	for dot in createdDots:
 		dot.queue_free()
 	createdDots.clear()
-		
