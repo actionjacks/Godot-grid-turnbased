@@ -57,7 +57,6 @@ func _input(event):
 	var idPath: Array[Vector2i]
 	
 	if isMoving:
-		redrawNewPointPath.emit()
 		idPath = astarGrid.get_id_path(
 			tileMap.local_to_map(global_position),
 			tileMap.local_to_map(get_global_mouse_position())
@@ -70,8 +69,6 @@ func _input(event):
 		
 	if !idPath.is_empty():
 		currentIdPath = idPath
-		updateMousePath()
-
 	
 func _physics_process(delta):
 	if !isMoving:
@@ -79,6 +76,9 @@ func _physics_process(delta):
 	else:
 		animationPlayer.play('walking')
 		
+	redrawNewPointPath.emit()
+	updateMousePath()
+
 	if currentIdPath.is_empty():
 		return
 

@@ -11,7 +11,7 @@ func _process(_delta):
 	queue_redraw()
 
 func _draw():
-	if playerPointer.currentIdPath.is_empty():
+	if playerPointer.currentPointPath.is_empty():
 		clearDots()
 		return
 
